@@ -40,7 +40,7 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
     const votes: VoteRecord[] = Object.entries(voteCounts)
       .filter(([_, cantidad]) => cantidad > 0)
       .map(([lista, cantidad]) => ({
-        fiscal: official.id,
+        fiscal: official.id.toString(),
         mesa,
         lista,
         cantidad

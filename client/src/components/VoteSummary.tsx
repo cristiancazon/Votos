@@ -16,6 +16,7 @@ export function VoteSummary({ votes, lists, onClose }: VoteSummaryProps) {
     <div className="w-full max-w-4xl mx-auto">
       <div className="bg-[#2C4A6E] text-white p-4 mb-4 rounded-t-lg">
         <h2 className="text-2xl font-bold text-center">Carga Realizada Correctamente</h2>
+        <p className="text-center mt-2">Mesa N° {votes[0]?.mesa}</p>
       </div>
       
       <div className="bg-white rounded-b-lg shadow-lg overflow-hidden">
