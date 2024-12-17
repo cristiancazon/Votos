@@ -92,13 +92,31 @@ export const api = {
   },
 
   async getTableVotes(mesa: string): Promise<{ lista: string; cantidad: number; }[]> {
+    // Primero obtenemos el voto correspondiente a la mesa
+    const votoResponse = await axiosInstance.get(`${BASE_URL}/votos`, {
+      params: {
+        fields: ['id'],
+        filter: {
+          mesa: {
+            _eq: mesa
+          }
+        }
+      }
+    });
+
+    if (!votoResponse.data.data?.length) {
+      return [];
+    }
+
+    const votoId = votoResponse.data.data[0].id;
+
+    // Luego obtenemos los items de la lista para ese voto
     const response = await axiosInstance.get(`${BASE_URL}/list_items`, {
       params: {
-        fields: ['lista', 'cantidad', 'voto'],
-        expand: ['voto'],
+        fields: ['lista', 'cantidad'],
         filter: {
-          'voto.mesa': {
-            _eq: mesa
+          voto: {
+            _eq: votoId
           }
         }
       }
