@@ -39,7 +39,7 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
       .filter(([_, cantidad]) => cantidad > 0)
       .map(([id_lista, cantidad]) => ({
         id_fiscal: official.id,
-        id_lista: parseInt(id_lista),
+        lista_id: parseInt(id_lista),
         cantidad
       }));
     onSubmit(votes);
