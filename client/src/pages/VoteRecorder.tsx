@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { DniValidation } from "@/components/DniValidation";
 import { VoteTable } from "@/components/VoteTable";
+import { VoteSummary } from "@/components/VoteSummary";
 import { Official, VoteRecord } from "@/types";
 import { api } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
 export function VoteRecorder() {
   const [official, setOfficial] = useState<Official | null>(null);
+  const [showSummary, setShowSummary] = useState(false);
   const { toast } = useToast();
 
   const { data: votingLists, isLoading } = useQuery({
@@ -19,11 +21,7 @@ export function VoteRecorder() {
   const { mutate: submitVotes, isPending } = useMutation({
     mutationFn: (votes: VoteRecord[]) => api.submitVotes(votes),
     onSuccess: () => {
-      toast({
-        title: "Success",
-        description: "Votes recorded successfully",
-      });
-      setOfficial(null);
+      setShowSummary(true);
     },
     onError: () => {
       toast({
@@ -33,6 +31,15 @@ export function VoteRecorder() {
       });
     }
   });
+
+  const handleNewVote = () => {
+    setShowSummary(false);
+    setOfficial(null);
+  };
+
+  if (showSummary) {
+    return <VoteSummary onClose={handleNewVote} />;
+  }
 
   if (!official) {
     return <DniValidation onValidated={setOfficial} />;
