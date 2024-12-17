@@ -12,11 +12,27 @@ const axiosInstance = axios.create({
 
 export const api = {
   async validateOfficial(dni: string): Promise<Official> {
-    const response = await axiosInstance.get(`${BASE_URL}/fiscales?filter[dni][_eq]=${dni}`);
-    if (!response.data.data?.length) {
-      throw new Error("Invalid DNI - Official not found");
+    try {
+      const response = await axiosInstance.get(`${BASE_URL}/fiscales`, {
+        params: {
+          filter: {
+            dni: {
+              _eq: dni
+            }
+          }
+        }
+      });
+      
+      if (!response.data.data?.length) {
+        throw new Error("DNI no encontrado - Fiscal no registrado");
+      }
+      return response.data.data[0];
+    } catch (error: any) {
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        throw new Error("Error de autenticación con Directus");
+      }
+      throw error;
     }
-    return response.data.data[0];
   },
 
   async getVotingLists(): Promise<VotingList[]> {

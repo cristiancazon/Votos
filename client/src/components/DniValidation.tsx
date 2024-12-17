@@ -29,9 +29,10 @@ export function DniValidation({ onValidated }: DniValidationProps) {
         description: `Welcome ${official.nombre} ${official.apellido}`,
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Error al validar el DNI";
       toast({
-        title: "Validation failed",
-        description: "Please check your DNI and try again",
+        title: "Error de Validación",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
