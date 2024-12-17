@@ -52,6 +52,7 @@ export const api = {
     // First create a single vote record
     const voteResponse = await axiosInstance.post(`${BASE_URL}/votos`, {
       fiscal: votes[0].fiscal,
+      mesa: votes[0].mesa,
       line_listas: []
     });
     
