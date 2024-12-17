@@ -66,5 +66,28 @@ export const api = {
         voto: votoId
       });
     }
+  },
+
+  async getVoteSummaries(): Promise<{ lista: string; total: number; }[]> {
+    const response = await axiosInstance.get(`${BASE_URL}/list_items`, {
+      params: {
+        fields: ['lista', 'cantidad']
+      }
+    });
+    
+    // Agrupar y sumar los votos por lista
+    const voteSummaries = response.data.data.reduce((acc: any, item: any) => {
+      const lista = item.lista;
+      if (!acc[lista]) {
+        acc[lista] = 0;
+      }
+      acc[lista] += item.cantidad;
+      return acc;
+    }, {});
+
+    return Object.entries(voteSummaries).map(([lista, total]) => ({
+      lista,
+      total: total as number
+    }));
   }
 };
