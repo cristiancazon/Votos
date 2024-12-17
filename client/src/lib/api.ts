@@ -53,7 +53,7 @@ export const api = {
       // Create list_item with the related vote in a single request
       await axiosInstance.post(`${BASE_URL}/list_items`, {
         id_fiscal: vote.id_fiscal,
-        lista_id: vote.lista_id,
+        id_lista: vote.id_lista,
         cantidad: vote.cantidad,
         voto: {
           create: {

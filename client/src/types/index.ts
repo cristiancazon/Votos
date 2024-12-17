@@ -13,6 +13,6 @@ export interface VotingList {
 
 export interface VoteRecord {
   id_fiscal: number;
-  lista_id: number;
+  id_lista: number;
   cantidad: number;
 }
