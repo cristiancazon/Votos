@@ -1,4 +1,13 @@
 import { useEffect } from "react";
+function isLightColor(color: string): boolean {
+  const hex = color.replace('#', '');
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return brightness > 128;
+}
+
 import { useForm } from "react-hook-form";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -49,16 +58,21 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>List Number</TableHead>
-                <TableHead>List Name</TableHead>
-                <TableHead>Votes</TableHead>
-              </TableRow>
+                  <TableHead>Lista</TableHead>
+                  <TableHead>Votos</TableHead>
+                </TableRow>
             </TableHeader>
             <TableBody>
               {lists.map((list) => (
                 <TableRow key={list.id}>
-                  <TableCell>{list.numero}</TableCell>
-                  <TableCell>{list.nombre}</TableCell>
+                  <TableCell 
+                    style={{ 
+                      backgroundColor: list.color,
+                      color: isLightColor(list.color) ? '#000' : '#fff'
+                    }}
+                  >
+                    {list.nombre}
+                  </TableCell>
                   <TableCell>
                     <Input
                       type="number"

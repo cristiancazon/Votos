@@ -8,7 +8,7 @@ export interface Official {
 export interface VotingList {
   id: number;
   nombre: string;
-  numero: string;
+  color: string;
 }
 
 export interface VoteRecord {
