@@ -2,11 +2,15 @@ import axios from "axios";
 import { Official, VotingList, VoteRecord } from "@/types";
 
 const BASE_URL = "https://xer.pascalito.com.ar/items";
-const API_KEY = import.meta.env.DIRECTUS_API_KEY;
+const API_KEY = import.meta.env.VITE_DIRECTUS_API_KEY;
+
+if (!API_KEY) {
+  throw new Error("Directus API key is not configured");
+}
 
 const axiosInstance = axios.create({
   headers: {
-    'Authorization': `Bearer ${API_KEY}`
+    'Authorization': API_KEY
   }
 });
 
