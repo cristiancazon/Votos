@@ -10,7 +10,7 @@ if (!API_KEY) {
 
 const axiosInstance = axios.create({
   headers: {
-    'Authorization': API_KEY
+    'Authorization': `Bearer ${API_KEY}`
   }
 });
 
