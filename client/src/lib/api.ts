@@ -51,7 +51,8 @@ export const api = {
   async submitVotes(votes: VoteRecord[]): Promise<void> {
     // First create a single vote record
     const voteResponse = await axiosInstance.post(`${BASE_URL}/votos`, {
-      line_listas: true
+      fiscal: votes[0].fiscal,
+      line_listas: []
     });
     
     const votoId = voteResponse.data.data.id;
@@ -59,10 +60,9 @@ export const api = {
     // Then create all list_items related to this vote
     for (const vote of votes) {
       await axiosInstance.post(`${BASE_URL}/list_items`, {
-        id_fiscal: vote.id_fiscal,
-        id_lista: vote.id_lista,
         cantidad: vote.cantidad,
-        voto_id: votoId
+        lista: vote.lista,
+        voto: votoId
       });
     }
   }

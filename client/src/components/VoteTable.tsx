@@ -37,9 +37,9 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
   const onSubmitForm = (data: Record<string, number>) => {
     const votes: VoteRecord[] = Object.entries(data)
       .filter(([_, cantidad]) => cantidad > 0)
-      .map(([id_lista, cantidad]) => ({
-        id_fiscal: official.id,
-        id_lista: parseInt(id_lista),
+      .map(([lista, cantidad]) => ({
+        fiscal: official.id,
+        lista,
         cantidad
       }));
     onSubmit(votes);
