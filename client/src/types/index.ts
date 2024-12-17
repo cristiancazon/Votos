@@ -13,6 +13,7 @@ export interface VotingList {
 
 export interface VoteRecord {
   fiscal: string;
+  mesa: string;
   lista: string;
   cantidad: number;
   voto?: string;

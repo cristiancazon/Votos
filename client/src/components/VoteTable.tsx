@@ -34,11 +34,13 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
     reset();
   }, [lists, reset]);
 
-  const onSubmitForm = (data: Record<string, number>) => {
-    const votes: VoteRecord[] = Object.entries(data)
+  const onSubmitForm = (data: Record<string, any>) => {
+    const { mesa, ...voteCounts } = data;
+    const votes: VoteRecord[] = Object.entries(voteCounts)
       .filter(([_, cantidad]) => cantidad > 0)
       .map(([lista, cantidad]) => ({
         fiscal: official.id,
+        mesa,
         lista,
         cantidad
       }));
@@ -55,6 +57,24 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmitForm)}>
+          <div className="mb-6">
+            <Label htmlFor="mesa" className="text-[#334155] font-medium">Número de Mesa</Label>
+            <Input
+              id="mesa"
+              {...register("mesa", { 
+                required: "El número de mesa es requerido",
+                pattern: {
+                  value: /^\d+$/,
+                  message: "Solo se permiten números"
+                }
+              })}
+              placeholder="Ingrese el número de mesa"
+              className="w-full max-w-xs border-[#94A3B8] focus:border-[#2C4A6E] focus:ring-[#2C4A6E] mt-2"
+            />
+            {errors.mesa && (
+              <p className="text-sm text-red-500 mt-1">{errors.mesa.message}</p>
+            )}
+          </div>
           <Table>
             <TableHeader>
               <TableRow>
