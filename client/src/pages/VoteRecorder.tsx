@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 export function VoteRecorder() {
   const [official, setOfficial] = useState<Official | null>(null);
   const [showSummary, setShowSummary] = useState(false);
+  const [submittedVotes, setSubmittedVotes] = useState<VoteRecord[]>([]);
   const { toast } = useToast();
 
   const { data: votingLists, isLoading } = useQuery({
@@ -19,7 +20,10 @@ export function VoteRecorder() {
   });
 
   const { mutate: submitVotes, isPending } = useMutation({
-    mutationFn: (votes: VoteRecord[]) => api.submitVotes(votes),
+    mutationFn: (votes: VoteRecord[]) => {
+      setSubmittedVotes(votes);
+      return api.submitVotes(votes);
+    },
     onSuccess: () => {
       setShowSummary(true);
     },
@@ -35,10 +39,11 @@ export function VoteRecorder() {
   const handleNewVote = () => {
     setShowSummary(false);
     setOfficial(null);
+    setSubmittedVotes([]);
   };
 
-  if (showSummary) {
-    return <VoteSummary onClose={handleNewVote} />;
+  if (showSummary && votingLists) {
+    return <VoteSummary votes={submittedVotes} lists={votingLists} onClose={handleNewVote} />;
   }
 
   if (!official) {
