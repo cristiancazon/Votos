@@ -41,26 +41,26 @@ export function DniValidation({ onValidated }: DniValidationProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <h2 className="text-2xl font-bold text-center">Election Official Validation</h2>
+    <Card className="w-full max-w-md mx-auto bg-white shadow-lg">
+      <CardHeader className="bg-[#2C4A6E] text-white rounded-t-lg">
+        <h2 className="text-2xl font-bold text-center">Validación de Fiscal</h2>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="dni">DNI Number</Label>
+              <Label htmlFor="dni" className="text-[#334155] font-medium">Número de DNI</Label>
               <Input
                 id="dni"
                 {...register("dni", { 
-                  required: "DNI is required",
+                  required: "DNI es requerido",
                   pattern: {
                     value: /^\d{7,8}$/,
-                    message: "Invalid DNI format"
+                    message: "Formato de DNI inválido"
                   }
                 })}
-                placeholder="Enter your DNI"
-                className="w-full"
+                placeholder="Ingrese su DNI"
+                className="w-full border-[#94A3B8] focus:border-[#2C4A6E] focus:ring-[#2C4A6E]"
               />
               {errors.dni && (
                 <p className="text-sm text-red-500">{errors.dni.message}</p>
@@ -68,10 +68,10 @@ export function DniValidation({ onValidated }: DniValidationProps) {
             </div>
             <Button 
               type="submit" 
-              className="w-full"
+              className="w-full bg-[#2C4A6E] hover:bg-[#1E3A5F] text-white"
               disabled={isLoading}
             >
-              {isLoading ? "Validating..." : "Validate"}
+              {isLoading ? "Validando..." : "Validar"}
             </Button>
           </div>
         </form>
