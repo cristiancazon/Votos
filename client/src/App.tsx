@@ -1,6 +1,7 @@
 import { Switch, Route, Link } from "wouter";
 import { VoteRecorder } from "@/pages/VoteRecorder";
 import { Dashboard } from "@/pages/Dashboard";
+import { TableResults } from "@/pages/TableResults";
 
 function App() {
   return (
@@ -15,11 +16,15 @@ function App() {
             <Link href="/dashboard">
               <a className="hover:text-gray-300 transition-colors">Ver Resumen</a>
             </Link>
+            <Link href="/table">
+              <a className="hover:text-gray-300 transition-colors">Consultar Mesa</a>
+            </Link>
           </nav>
         </div>
         <Switch>
           <Route path="/" component={VoteRecorder} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/table" component={TableResults} />
         </Switch>
       </div>
     </div>

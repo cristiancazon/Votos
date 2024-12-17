@@ -89,5 +89,24 @@ export const api = {
       lista,
       total: total as number
     }));
+  },
+
+  async getTableVotes(mesa: string): Promise<{ lista: string; cantidad: number; }[]> {
+    const response = await axiosInstance.get(`${BASE_URL}/list_items`, {
+      params: {
+        fields: ['lista', 'cantidad', 'voto'],
+        expand: ['voto'],
+        filter: {
+          'voto.mesa': {
+            _eq: mesa
+          }
+        }
+      }
+    });
+    
+    return response.data.data.map((item: any) => ({
+      lista: item.lista,
+      cantidad: item.cantidad
+    }));
   }
 };
