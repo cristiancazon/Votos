@@ -1,4 +1,12 @@
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { VotingList, Official, VoteRecord } from "@/types";
+
 function isLightColor(color: string): boolean {
   const hex = color.replace('#', '');
   const r = parseInt(hex.substr(0, 2), 16);
@@ -7,13 +15,6 @@ function isLightColor(color: string): boolean {
   const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
   return brightness > 128;
 }
-
-import { useForm } from "react-hook-form";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
-import { VotingList, Official, VoteRecord } from "@/types";
 
 interface VoteTableProps {
   lists: VotingList[];
