@@ -51,9 +51,9 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
   return (
     <Card className="w-full">
       <CardHeader>
-        <h2 className="text-2xl font-bold">Vote Recording</h2>
+        <h2 className="text-2xl font-bold">Carga de Votos</h2>
         <p className="text-sm text-muted-foreground">
-          Official: {official.nombre} {official.apellido}
+          Fiscal: {official.nombre} {official.apellido}
         </p>
       </CardHeader>
       <CardContent>
@@ -115,7 +115,7 @@ export function VoteTable({ lists, official, onSubmit, isSubmitting }: VoteTable
           </Table>
           <div className="mt-6 flex justify-end">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit Votes"}
+              {isSubmitting ? "Guardando..." : "Guardar Votos"}
             </Button>
           </div>
         </form>
